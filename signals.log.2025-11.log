@@ -1,0 +1,63 @@
+2025-11-30 01:32:38,349 - Veritabanı başlatma ve güncelleme tamamlandı.
+2025-11-30 01:32:40,586 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getMe "HTTP/1.1 200 OK"
+2025-11-30 01:32:40,652 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/deleteWebhook "HTTP/1.1 200 OK"
+2025-11-30 01:32:40,654 - Scheduler started
+2025-11-30 01:32:40,654 - Application started
+2025-11-30 01:32:50,843 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:33:00,933 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:33:10,990 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:33:21,044 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:33:25,335 - Yanıt Tabanlı Sinyal Takip Mekanizması başlatıldı.
+2025-11-30 01:33:31,099 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:33:35,986 - Sinyal durumu güncellendi: ID 410 -> SL Oldu
+2025-11-30 01:33:36,476 - Sinyal 410 Excel'e kaydedildi/güncellendi: signals_2025-07.xlsx
+2025-11-30 01:33:36,738 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/sendMessage "HTTP/1.1 400 Bad Request"
+2025-11-30 01:33:36,739 - TP/SL yanıtı gönderilemedi (Chat 986610683): Message to be replied not found
+2025-11-30 01:33:36,743 - Sinyal durumu güncellendi: ID 411 -> SL Oldu
+2025-11-30 01:33:36,818 - Sinyal 411 Excel'e kaydedildi/güncellendi: signals_2025-07.xlsx
+2025-11-30 01:33:36,914 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/sendMessage "HTTP/1.1 400 Bad Request"
+2025-11-30 01:33:36,914 - TP/SL yanıtı gönderilemedi (Chat 986610683): Message to be replied not found
+2025-11-30 01:33:36,919 - Sinyal durumu güncellendi: ID 416 -> TP Oldu
+2025-11-30 01:33:36,993 - Sinyal 416 Excel'e kaydedildi/güncellendi: signals_2025-07.xlsx
+2025-11-30 01:33:37,072 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/sendMessage "HTTP/1.1 400 Bad Request"
+2025-11-30 01:33:37,072 - TP/SL yanıtı gönderilemedi (Chat 986610683): Message to be replied not found
+2025-11-30 01:33:37,078 - Sinyal durumu güncellendi: ID 417 -> SL Oldu
+2025-11-30 01:33:37,157 - Sinyal 417 Excel'e kaydedildi/güncellendi: signals_2025-07.xlsx
+2025-11-30 01:33:37,405 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/sendMessage "HTTP/1.1 400 Bad Request"
+2025-11-30 01:33:37,406 - TP/SL yanıtı gönderilemedi (Chat 986610683): Message to be replied not found
+2025-11-30 01:33:37,410 - Sinyal durumu güncellendi: ID 420 -> SL Oldu
+2025-11-30 01:33:37,486 - Sinyal 420 Excel'e kaydedildi/güncellendi: signals_2025-07.xlsx
+2025-11-30 01:33:37,636 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/sendMessage "HTTP/1.1 400 Bad Request"
+2025-11-30 01:33:37,636 - TP/SL yanıtı gönderilemedi (Chat 986610683): Message to be replied not found
+2025-11-30 01:33:37,641 - Sinyal durumu güncellendi: ID 421 -> TP Oldu
+2025-11-30 01:33:37,717 - Sinyal 421 Excel'e kaydedildi/güncellendi: signals_2025-08.xlsx
+2025-11-30 01:33:37,789 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/sendMessage "HTTP/1.1 400 Bad Request"
+2025-11-30 01:33:37,789 - TP/SL yanıtı gönderilemedi (Chat 986610683): Message to be replied not found
+2025-11-30 01:33:37,793 - Sinyal durumu güncellendi: ID 422 -> TP Oldu
+2025-11-30 01:33:37,866 - Sinyal 422 Excel'e kaydedildi/güncellendi: signals_2025-08.xlsx
+2025-11-30 01:33:38,017 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/sendMessage "HTTP/1.1 200 OK"
+2025-11-30 01:33:38,018 - Yanıt gönderildi: Sinyal ID 422 -> Chat 986610683
+2025-11-30 01:33:41,180 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:33:51,256 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:34:01,313 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:34:11,376 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:34:15,103 - HTTP Request: POST https://api.telegram.org/bot7818791938:AAHt8jbloyU-TdOyKBd_T172Eqyd1jKIUJo/getUpdates "HTTP/1.1 200 OK"
+2025-11-30 01:34:15,105 - Application is stopping. This might take a moment.
+2025-11-30 01:34:15,105 - Scheduler has been shut down
+2025-11-30 01:34:15,105 - Application.stop() complete
+2025-11-30 01:34:15,106 - Bot ana döngüsünde beklenmeyen kritik hata: Event loop is closed
+Traceback (most recent call last):
+  File "E:\SmartKoinBot\SmartKoinBot.py", line 1122, in main
+    loop.run_until_complete(app.run_polling(allowed_updates=Update.ALL_TYPES))
+  File "C:\Users\bjksk\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 629, in run_until_complete
+    self._check_closed()
+  File "C:\Users\bjksk\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 520, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2025-11-30 01:34:15,234 - Task was destroyed but it is pending!
+task: <Task pending name='Task-4' coro=<send_periodic_signals() running at E:\SmartKoinBot\SmartKoinBot.py:855> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2025-11-30 01:34:15,235 - Task was destroyed but it is pending!
+task: <Task pending name='Task-5' coro=<monitor_active_signals() running at E:\SmartKoinBot\SmartKoinBot.py:792> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2025-11-30 01:34:15,315 - binance requires to release all resources with an explicit call to the .close() coroutine. If you are using the exchange instance with async coroutines, add `await exchange.close()` to your code into a place when you're done with the exchange and don't need the exchange instance anymore (at the end of your async coroutine).
+2025-11-30 01:34:15,316 - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x0000017E214B9210>

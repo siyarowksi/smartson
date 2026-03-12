@@ -525,18 +525,6 @@ def calculate_price_action(df):
                          latest['open'] > prev['close'])
     return 'bullish' if bullish_engulfing else 'bearish' if bearish_engulfing else None
 
-def detect_fvg(df):
-    """Fair Value Gap (FVG) tespit eder."""
-    fvg_bull = df['low'] > df['high'].shift(2)
-    fvg_bear = df['high'] < df['low'].shift(2)
-    return fvg_bull, fvg_bear
-
-def detect_order_blocks(df):
-    """Basit Order Block tespit eder."""
-    bull_ob = (df['close'].shift(1) < df['open'].shift(1)) & (df['close'] > df['open']) & (df['close'] > df['high'].shift(1))
-    bear_ob = (df['close'].shift(1) > df['open'].shift(1)) & (df['close'] < df['open']) & (df['close'] < df['low'].shift(1))
-    return bull_ob, bear_ob
-
 async def generate_signal(df, symbol, timeframe):
     """Veri çerçevesi ve göstergeleri kullanarak alım/satım sinyali üretir."""
     try:
@@ -557,8 +545,6 @@ async def generate_signal(df, symbol, timeframe):
         df['atr'] = calculate_atr(df)
         df['fast_ema'], df['slow_ema'] = calculate_ema_cross(df['close'])
         pa_signal = calculate_price_action(df)
-        df['fvg_bull'], df['fvg_bear'] = detect_fvg(df)
-        df['ob_bull'], df['ob_bear'] = detect_order_blocks(df)
 
         # NaN kontrolü
         required_indicators = ['rsi', 'macd', 'bb_upper', 'bb_lower', 'atr', 'fast_ema', 'slow_ema',
@@ -586,10 +572,6 @@ async def generate_signal(df, symbol, timeframe):
         latest_mfi = df['mfi'].iloc[-1]
         latest_fast_ema = df['fast_ema'].iloc[-1]
         latest_slow_ema = df['slow_ema'].iloc[-1]
-        latest_fvg_bull = df['fvg_bull'].iloc[-1]
-        latest_fvg_bear = df['fvg_bear'].iloc[-1]
-        latest_ob_bull = df['ob_bull'].iloc[-1]
-        latest_ob_bear = df['ob_bear'].iloc[-1]
 
         # Alım/satım sinyalleri
         buy_signals = []
@@ -638,14 +620,6 @@ async def generate_signal(df, symbol, timeframe):
             buy_signals.append('Price Action')
         elif pa_signal == 'bearish':
             sell_signals.append('Price Action')
-        if latest_fvg_bull:
-            buy_signals.append('FVG')
-        if latest_fvg_bear:
-            sell_signals.append('FVG')
-        if latest_ob_bull:
-            buy_signals.append('Order Block')
-        if latest_ob_bear:
-            sell_signals.append('Order Block')
 
         buy_count = len(buy_signals)
         sell_count = len(sell_signals)
@@ -676,97 +650,55 @@ async def generate_signal(df, symbol, timeframe):
         if signal_type == 'Uzun':
             if 'RSI' in buy_signals and latest_rsi < 30:
                 comments.append("RSI aşırı satım bölgesinde, toparlanma bekleniyor.")
-                comments.append("RSI düşük seviyelerde, alım fırsatı işaret ediyor.")
             if 'MACD' in buy_signals:
                 comments.append("MACD yukarı kesişme yaptı, yükseliş momentumu güçlü.")
-                comments.append("MACD pozitif geçiş, trend dönüşü sinyali.")
             if 'Bollinger' in buy_signals:
                 comments.append("Fiyat Bollinger alt bandına yakın, tepki alımı olası.")
-                comments.append("Bollinger sıkışması çözülüyor, yukarı yönlü hareket bekleniyor.")
             if 'SMA' in buy_signals:
                 comments.append("Fiyat MA20'yi yukarı kırdı, kısa vadeli yükseliş sinyali.")
-                comments.append("SMA desteği alındı, devam eden yükseliş muhtemel.")
             if 'EMA' in buy_signals:
                 comments.append("Fiyat EMA'yı yukarı kırdı, trend pozitif.")
-                comments.append("EMA'lar pozitif dizilimde, alım baskısı artıyor.")
             if 'Stochastic' in buy_signals:
                 comments.append("Stochastic aşırı satım bölgesinde, alım baskısı artıyor.")
-                comments.append("Stochastic kesişimi yukarı, momentum değişimi.")
             if 'ADX' in buy_signals:
                 comments.append("ADX güçlü trend gösteriyor, alım yönünde hareket bekleniyor.")
-                comments.append("ADX yükselişte, trend gücü alımlara işaret ediyor.")
             if 'Williams %R' in buy_signals:
                 comments.append("Williams %R aşırı satım bölgesinde, toparlanma sinyali.")
-                comments.append("Williams %R dönüşü, alımların güçleneceğini gösteriyor.")
             if 'MFI' in buy_signals:
                 comments.append("MFI düşük, alım hacmi artışı bekleniyor.")
-                comments.append("MFI aşırı satımda, para akışı pozitif dönüyor.")
             if 'EMA Cross' in buy_signals:
                 comments.append("MA5 ve MA10 yukarı kesişti, kısa vadeli yükseliş momentumu.")
-                comments.append("EMA kesişimi, hızlı yükseliş başlangıcı.")
             if 'Price Action' in buy_signals and pa_signal == 'bullish':
                 comments.append("Boğa yutan formasyonu, güçlü alım sinyali.")
-                comments.append("Bullish engulfing, piyasa sentiment'i pozitif.")
-            if 'FVG' in buy_signals:
-                comments.append("Bullish Fair Value Gap tespit edildi, yükseliş potansiyeli.")
-                comments.append("Bullish FVG → kurumsal alım bölgesi doldurulabilir.")
-                comments.append("⚠️ Genel yapı satış yönünde - dikkatli olunmalı.")
-            if 'Order Block' in buy_signals:
-                comments.append("Bullish Order Block, akıllı para girişi sinyali.")
-                comments.append("Order Block desteği, kurumsal alım bekleniyor.")
             if df['volume'].iloc[-1] > df['volume'].rolling(window=20).mean().iloc[-1]:
                 comments.append("Güçlü alım hacmiyle destekleniyor.")
-                comments.append("Hacim artışı, sinyali güçlendiriyor.")
         elif signal_type == 'Kısa':
             if 'RSI' in sell_signals and latest_rsi > 70:
                 comments.append("RSI aşırı alım bölgesinde, düzeltme bekleniyor.")
-                comments.append("RSI yüksek seviyelerde, satış baskısı artabilir.")
             if 'MACD' in sell_signals:
                 comments.append("MACD aşağı kesişme yaptı, düşüş momentumu güçlü.")
-                comments.append("MACD negatif geçiş, trend düşüşü sinyali.")
             if 'Bollinger' in sell_signals:
                 comments.append("Fiyat Bollinger üst bandına yakın, satış baskısı olası.")
-                comments.append("Bollinger genişlemesi, aşağı yönlü hareket bekleniyor.")
             if 'SMA' in sell_signals:
                 comments.append("Fiyat MA20'yi aşağı kırdı, kısa vadeli düşüş sinyali.")
-                comments.append("SMA direnci kırıldı, devam eden düşüş muhtemel.")
             if 'EMA' in sell_signals:
                 comments.append("Fiyat EMA'yı aşağı kırdı, trend negatif.")
-                comments.append("EMA'lar negatif dizilimde, satış baskısı artıyor.")
             if 'Stochastic' in sell_signals:
                 comments.append("Stochastic aşırı alım bölgesinde, satış baskısı artıyor.")
-                comments.append("Stochastic kesişimi aşağı, momentum değişimi.")
             if 'ADX' in sell_signals:
                 comments.append("ADX güçlü trend gösteriyor, satış yönünde hareket bekleniyor.")
-                comments.append("ADX yükselişte, trend gücü satışlara işaret ediyor.")
             if 'Williams %R' in sell_signals:
                 comments.append("Williams %R aşırı alım bölgesinde, düzeltme sinyali.")
-                comments.append("Williams %R dönüşü, satışların güçleneceğini gösteriyor.")
             if 'MFI' in sell_signals:
                 comments.append("MFI yüksek, satış hacmi artışı bekleniyor.")
-                comments.append("MFI aşırı alımda, para akışı negatif dönüyor.")
             if 'EMA Cross' in sell_signals:
                 comments.append("MA5 ve MA10 aşağı kesişti, kısa vadeli düşüş momentumu.")
-                comments.append("EMA kesişimi, hızlı düşüş başlangıcı.")
             if 'Price Action' in sell_signals and pa_signal == 'bearish':
                 comments.append("Ayı yutan formasyonu, güçlü satış sinyali.")
-                comments.append("Bearish engulfing, piyasa sentiment'i negatif.")
-            if 'FVG' in sell_signals:
-                comments.append("Bearish Fair Value Gap tespit edildi, düşüş potansiyeli.")
-                comments.append("Bearish FVG → kurumsal satış bölgesi doldurulabilir.")
-                comments.append("⚠️ Genel yapı alım yönünde - dikkatli olunmalı.")
-            if 'Order Block' in sell_signals:
-                comments.append("Bearish Order Block, akıllı para çıkışı sinyali.")
-                comments.append("Order Block direnci, kurumsal satış bekleniyor.")
             if df['volume'].iloc[-1] > df['volume'].rolling(window=20).mean().iloc[-1]:
                 comments.append("Güçlü satış hacmiyle destekleniyor.")
-                comments.append("Hacim artışı, sinyali güçlendiriyor.")
-        if comments:
-            selected_comments = random.sample(comments, min(3, len(comments)))
-            comments_str = '\n'.join(selected_comments)
-        else:
-            comments_str = "Teknik göstergeler sinyali destekliyor."
-        logging.info(f"Şablon tabanlı yorum üretildi: {comments_str}")
+        comment = random.choice(comments) if comments else "Teknik göstergeler sinyali destekliyor."
+        logging.info(f"Şablon tabanlı yorum üretildi: {comment}")
 
         # Sinyal mesajı
         message = (
@@ -775,7 +707,7 @@ async def generate_signal(df, symbol, timeframe):
             f'💵 Giriş Fiyatı: {latest_price:.8f} USDT\n'
             f'🎯 Kâr Al: {atr_take_profit:.8f} USDT\n'
             f'🛡️ Zarar Durdur: {atr_stop_loss:.8f} USDT\n'
-            f'🧠 Yorum: {comments_str}\n'
+            f'🧠 Yorum: {comment}\n'
             f'📊 Risk-Ödül Oranı: 1.0'
         )
 
